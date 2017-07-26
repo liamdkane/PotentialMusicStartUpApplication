@@ -1,0 +1,5 @@
+# PotentialMusicStartUpApplication
+SpotifyAPI Fun
+
+
+Notes
