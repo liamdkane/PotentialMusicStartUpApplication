@@ -25,9 +25,11 @@ struct AlbumModel {
     let id: String
 }
 
-class SongViewModel {
+class SongViewModel: ErrorHandler {
     var albums: [AlbumModel] = []
     var nextUrl: String = ""
+    private var imageDataCache = [String: Data]()
+    private var currentTasks = Set<String>()
     
     //the idea behind this is to have a 'Source of Truth'
     private var songs: [SongModel] = [] {
@@ -74,6 +76,31 @@ class SongViewModel {
                 }
             }
         }
+    }
+    
+    //This is getting each image, checking to see if the task has already been completed or is being worked on before calling the API
+    func getImage(for song: SongModel, callback: @escaping (Data?) -> Void) {
+        let album = albums.first{ $0.id == song.albumId }!
+        
+        if let data = imageDataCache[album.imageUrl] {
+            callback(data)
+            
+            return
+        } else if currentTasks.insert(album.imageUrl).inserted {
+            Alamofire.request(album.imageUrl).response { [weak self] (response) in
+                self?.currentTasks.remove(album.imageUrl)
+                
+                if let error = response.error {
+                    self?.handle(error)
+                }
+                
+                if let data = response.data {
+                    self?.imageDataCache[album.imageUrl] = data
+                    let noteCenter = NotificationCenter.default
+                    noteCenter.post(name: kImageNotificationName, object: album.id)
+                }
+            }
+        } 
     }
     
     func sort(by: Sort) {

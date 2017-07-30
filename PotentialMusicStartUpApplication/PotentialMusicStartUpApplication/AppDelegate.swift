@@ -60,6 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let tableVC = SongsTableViewController(viewModel: viewModel)
         let navVC = UINavigationController(rootViewController: tableVC)
+        let lightBlack = UIColor(white: 0.185, alpha: 0.8)
+        navVC.navigationBar.barTintColor = lightBlack
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
     }

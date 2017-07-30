@@ -19,7 +19,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
     
     let tableView = SongTableView(frame: .zero, style: .plain)
     let songViewModel: SongViewModel
-    var sortPreference: Sort = .standard {
+    var sortPreference: Sort = .byAlbum {
         didSet{
             songViewModel.sort(by: sortPreference)
         }
@@ -39,6 +39,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         registerForNotification()
         configureTableView()
+        //navigationController?.navigationBar.barStyle = .blackTranslucent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,9 +62,9 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
     
 }
 extension SongsTableViewController: UITableViewDataSource {
-
+    
     // MARK: - Table view data source
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if sortPreference == .byAlbum {
@@ -71,18 +72,18 @@ extension SongsTableViewController: UITableViewDataSource {
         }
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if sortPreference == .byAlbum {
             return songViewModel.fileredAndSortedSongs.filter {
                 $0.albumId == songViewModel.albums[section].id
-            }.count
+                }.count
         }
-
+        
         return songViewModel.fileredAndSortedSongs.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kSongCellId, for: indexPath) as! SongTableViewCell
         var song: SongModel
@@ -104,15 +105,26 @@ extension SongsTableViewController: UITableViewDataSource {
             return songViewModel.albums[section].name
         }
         return nil
-
+        
     }
     
     func configure(cell: SongTableViewCell, with song: SongModel) {
-        //cell.albumImageView = songViewModel
+        self.songViewModel.getImage(for: song) { (data) in
+                if let data = data,
+                    let image = UIImage(data: data) {
+                    
+                    DispatchQueue.main.async {
+                        cell.albumImageView.image = image
+                        cell.setNeedsLayout()
+                    }
+                }
+            }
+        cell.song = song
         cell.songTitleLabel.text = song.name
         cell.artistsNamesLabel.text = song.artists.joined(separator: ", ")
     }
-
+    
+    
 }
 
 extension SongsTableViewController {
@@ -121,11 +133,23 @@ extension SongsTableViewController {
         //Because we are making ten different calls for the songs, I felt it was best to just send a notification of completion so that the table view could be updated accordingly
         let noteCenter = NotificationCenter.default
         noteCenter.addObserver(self, selector: #selector(handleSongNotification), name: kSongNotificationName, object: nil)
+        noteCenter.addObserver(self, selector: #selector(handleImageNotification(_:)), name: kImageNotificationName, object: nil)
         noteCenter.addObserver(self, selector: #selector(handleErrorNotification(_:)), name: kErrorNotificationName, object: Error.self)
     }
     
     func handleSongNotification() {
-        self.tableView.reloadData()
+        tableView.reloadData()
+    }
+    
+    func handleImageNotification(_ note: Notification) {
+        if let albumId = note.object as? String {
+            tableView.visibleCells.forEach({ (cell) in
+                if let songCell = cell as? SongTableViewCell,
+                    songCell.song.albumId == albumId {
+                    configure(cell: songCell, with: songCell.song)
+                }
+            })
+        }
     }
     
     func handleErrorNotification(_ note: Notification) {
@@ -142,5 +166,5 @@ extension SongsTableViewController {
         let noteCenter = NotificationCenter.default
         noteCenter.removeObserver(self)
     }
-
+    
 }

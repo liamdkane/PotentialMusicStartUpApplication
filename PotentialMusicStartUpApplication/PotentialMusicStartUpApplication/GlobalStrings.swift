@@ -11,7 +11,9 @@ import UIKit
 
 //VARIOUS IDENTIFIERS
 let kSongNotificationName = NSNotification.Name(rawValue: "songAdded")
-let kErrorNotificationName = NSNotification.Name(rawValue: "songAdded")
+let kErrorNotificationName = NSNotification.Name(rawValue: "ERROR! ALERT!")
+let kImageNotificationName = NSNotification.Name(rawValue: "imageReceived")
+
 let kSongCellId = "SongTableViewCell"
 let kUserDefaultsKey = "token"
 

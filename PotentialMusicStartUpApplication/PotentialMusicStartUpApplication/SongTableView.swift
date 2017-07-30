@@ -15,7 +15,7 @@ class SongTableView: UITableView {
         super.init(frame: frame, style: style)
         
         rowHeight = UITableViewAutomaticDimension
-        estimatedRowHeight = 73
+        estimatedRowHeight = 74
         
         separatorColor = .darkGray
         scrollsToTop = true

@@ -26,25 +26,25 @@
                             <constraint firstAttribute="height" constant="65" id="lVm-dH-eTy"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFJ-zh-pfy">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="dFJ-zh-pfy">
                         <rect key="frame" x="75" y="16" width="233" height="20"/>
                         <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
                         <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-2t-4uW">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-2t-4uW">
                         <rect key="frame" x="77" y="36" width="231" height="16.5"/>
                         <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
                         <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83088077910958902" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80286815068493156" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="qUI-2t-4uW" secondAttribute="trailing" constant="4" id="1nJ-7f-t9B"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5yM-pn-joq" secondAttribute="bottom" constant="4" id="3Du-4S-BqT"/>
                     <constraint firstItem="dFJ-zh-pfy" firstAttribute="leading" secondItem="5yM-pn-joq" secondAttribute="trailing" constant="6" id="DsG-Tp-gSD"/>
-                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="qUI-2t-4uW" secondAttribute="bottom" constant="8" id="HOV-6D-b2c"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="qUI-2t-4uW" secondAttribute="bottom" constant="2" id="HOV-6D-b2c"/>
                     <constraint firstItem="5yM-pn-joq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="KTo-HV-Fze"/>
                     <constraint firstItem="5yM-pn-joq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="W5D-d0-0HK"/>
                     <constraint firstItem="qUI-2t-4uW" firstAttribute="leading" secondItem="5yM-pn-joq" secondAttribute="trailing" constant="8" id="tey-ia-jRK"/>

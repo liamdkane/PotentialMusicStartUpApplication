@@ -10,7 +10,7 @@
 import Foundation
 import Alamofire
 
-class AuthTokenModel {
+class AuthTokenModel: ErrorHandler {
     
     var accessToken = ""
     var refreshToken = ""
@@ -48,10 +48,13 @@ class AuthTokenModel {
     //todo: add in error handling
     func retrieveFromSpotify(callback: @escaping () -> Void) {
         
-        Alamofire.request(self.httpAccessTokenRequest!).responseJSON { [weak self] (reponse) in
+        Alamofire.request(self.httpAccessTokenRequest!).responseJSON { [weak self] (response) in
             
+            if let error = response.error {
+                self?.handle(error)
+            }
             
-            if let validJson = reponse.result.value as? [String: AnyObject] {
+            if let validJson = response.result.value as? [String: AnyObject] {
                 self?.handle(tokenJson: validJson)
                 callback()
             }
