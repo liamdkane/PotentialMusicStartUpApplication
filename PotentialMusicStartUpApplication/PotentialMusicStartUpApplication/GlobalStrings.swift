@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
-
-
+//VARIOUS IDENTIFIERS
+let kSongNotificationName = NSNotification.Name(rawValue: "songAdded")
+let kErrorNotificationName = NSNotification.Name(rawValue: "songAdded")
+let kSongCellId = "SongTableViewCell"
 let kUserDefaultsKey = "token"
 
 //Token Keys
@@ -36,19 +39,3 @@ let kIdSongKey = "id"
 let kNameSongKey = "name"
 let kTrackNumberSongKey = "track_number"
 
-/*
-artists
-available_markets
-disc_number 
-duration_ms
-explicit
-external_urls
-href
-id 
-is_playable
-name 
-preview_url
-track_number
-type
-uri	
- */

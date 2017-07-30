@@ -8,11 +8,7 @@ target 'PotentialMusicStartUpApplication' do
   # Pods for PotentialMusicStartUpApplication
 
 	pod ‘Alamofire’
-	pod ‘RxSwift’
-	pod ‘RxCocoa’
 	pod ’SnapKit’
-	pod ‘RxDataSources’
-	pod ‘RxAlamofire’
 
   target 'PotentialMusicStartUpApplicationTests' do
     inherit! :search_paths

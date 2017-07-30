@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+//Because of oauth, I wanted to manage the token seperately than the song requests, this necessitated an object to speak between the the token model and the song model.
+
 class RequestManager {
     
     private let spotifyClientID = "92993bec8c7144fba4e201d272ffb402"
@@ -71,16 +73,13 @@ class RequestManager {
     
     func initialGetAllSongsFromNewReleases () {
         
-        generateNextAlbumRequest(url: newAlbumsUrl)
+        let request = generateNextAlbumRequest(url: newAlbumsUrl)
                 
-        self.viewModel.getAlbums() {
-            
-            self.viewModel.albums.forEach {
+        self.viewModel.getAlbums(albumRequest: request) {
+            let requests = self.viewModel.albums.map {
                 self.generateSongRequest(id: $0.id)
             }
-            
-            
-            self.viewModel.getSongs {}
+            self.viewModel.getSongs(songRequests: requests) {}
         }
     }
     
@@ -93,27 +92,23 @@ class RequestManager {
         return header
     }()
     
-    private func generateImageRequest(id: String) {
-        
-    }
-    
-    private func generateSongRequest(id: String) {
+    private func generateSongRequest(id: String) -> URLRequest {
         let authHeaderString = "Bearer \(self.authTokenManager.accessToken)"
         let header = HTTPHeaders(dictionaryLiteral: ("Authorization", authHeaderString))
         
         let url = songsForAlbumUrl.replacingOccurrences(of: "*", with: id)
         let urlRequest = try! URLRequest(url: url, method: .get, headers: header)
         
-        self.viewModel.add(songRequest: urlRequest)
+        return urlRequest
     }
     
-    private func generateNextAlbumRequest(url: String) {
+    private func generateNextAlbumRequest(url: String) -> URLRequest {
         let authHeaderString = "Bearer \(self.authTokenManager.accessToken)"
         let header = HTTPHeaders(dictionaryLiteral: ("Authorization", authHeaderString))
         
         let urlRequest = try! URLRequest(url: url, method: .get, headers: header)
         
-        self.viewModel.set(request: urlRequest)
+        return urlRequest
     }
     
     
@@ -125,7 +120,7 @@ class RequestManager {
             "client_secret" : self.spotifyClientSecret,
             ]
         
-        _ = dictionary.flatMap {
+        dictionary.forEach {
             bodyDictionary[$0] = $1
         }
         
