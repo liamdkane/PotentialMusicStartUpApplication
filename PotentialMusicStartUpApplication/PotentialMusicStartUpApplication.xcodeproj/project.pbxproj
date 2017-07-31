@@ -82,6 +82,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C35CB541F2F8AE70013BC2C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				81CFD43E1F291E9900E5B1BB /* AppDelegate.swift */,
+				817FEADE1F2BB6750036D5FE /* SongsTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0C35CB551F2F8AFD0013BC2C /* Views+Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				81CC82761F2E4C810009A818 /* SongSearchBar.swift */,
+				8109AE221F2D6C2700069DD7 /* SongTableView.swift */,
+				8109AE261F2D6E6F00069DD7 /* SongTableViewCell.swift */,
+				8109AE271F2D6E6F00069DD7 /* SongTableViewCell.xib */,
+			);
+			name = "Views+Xibs";
+			sourceTree = "<group>";
+		};
+		0C35CB561F2F8B100013BC2C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				81955FBE1F2993220083911E /* GlobalStrings.swift */,
+				81CFD4451F291E9900E5B1BB /* Assets.xcassets */,
+				81CFD4471F291E9900E5B1BB /* LaunchScreen.storyboard */,
+				81CFD44A1F291E9900E5B1BB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		819327181F2D0C7A001CA913 /* NetworkManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,17 +147,10 @@
 		81CFD43D1F291E9900E5B1BB /* PotentialMusicStartUpApplication */ = {
 			isa = PBXGroup;
 			children = (
-				81CFD43E1F291E9900E5B1BB /* AppDelegate.swift */,
-				817FEADE1F2BB6750036D5FE /* SongsTableViewController.swift */,
-				81CC82761F2E4C810009A818 /* SongSearchBar.swift */,
+				0C35CB541F2F8AE70013BC2C /* Controllers */,
+				0C35CB551F2F8AFD0013BC2C /* Views+Xibs */,
 				819327181F2D0C7A001CA913 /* NetworkManagement */,
-				81955FBE1F2993220083911E /* GlobalStrings.swift */,
-				8109AE221F2D6C2700069DD7 /* SongTableView.swift */,
-				8109AE261F2D6E6F00069DD7 /* SongTableViewCell.swift */,
-				8109AE271F2D6E6F00069DD7 /* SongTableViewCell.xib */,
-				81CFD4451F291E9900E5B1BB /* Assets.xcassets */,
-				81CFD4471F291E9900E5B1BB /* LaunchScreen.storyboard */,
-				81CFD44A1F291E9900E5B1BB /* Info.plist */,
+				0C35CB561F2F8B100013BC2C /* Supporting Files */,
 			);
 			path = PotentialMusicStartUpApplication;
 			sourceTree = "<group>";

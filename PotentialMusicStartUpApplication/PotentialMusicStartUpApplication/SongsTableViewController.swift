@@ -34,6 +34,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
     let songViewModel: SongViewModel
     var sortPreference: Sort = .standard {
         didSet{
+            //Just to make sure that the text is properly filtered/sorted every time a change occures
             songViewModel.filter(by: searchBar.text ?? "", sort: sortPreference)
         }
     }
@@ -82,7 +83,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         view.addSubview(tableView)
     }
     
-    func configureNavigationBar () {
+    private func configureNavigationBar () {
         
         let navBar = navigationController?.navigationBar
         
@@ -91,6 +92,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         navBar?.titleTextAttributes = fontAttributes
         navBar?.barTintColor = lightBlack
         
+        //Because of the search bar animation, the title has to toggle on and off.
         toggleTitle(on: true)
         
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(menuButtonPressed))
@@ -116,7 +118,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         showSearchBar()
     }
     
-    func menuButtonPressed () {
+    @objc private func menuButtonPressed () {
         menuDisplaying = !menuDisplaying
         switch menuDisplaying {
         case true:
@@ -127,7 +129,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         animateSortControl()
     }
     
-    func configureSortControl () {
+    private func configureSortControl () {
         sortControl = UISegmentedControl(items: Sort.orderedStrings())
         let font = UIFont(name: kFontName, size: 17)
         sortControl.setTitleTextAttributes([NSFontAttributeName: font!], for: .normal)
@@ -143,7 +145,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         
     }
     
-    func makeStartingConstraints() {
+    private func makeStartingConstraints() {
         sortControl.snp.remakeConstraints { (view) in
             view.bottom.equalTo(self.view.snp.top).offset(-self.navigationController!.navigationBar.frame.height)
             view.leading.trailing.equalToSuperview()
@@ -153,7 +155,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func animateSortControl () {
+    private func animateSortControl () {
         switch menuDisplaying {
         case true:
             sortControl.snp.remakeConstraints { (view) in
@@ -193,6 +195,8 @@ extension SongsTableViewController: UISearchBarDelegate {
         self.searchBar.prepareForFadeAnimation(fade: false)
         
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.05, options: [], animations: {
+            
+            //
             let desiredWidth = UIScreen.main.bounds.width - self.menuButton.image!.size.width - 42
             self.adjustSearchBar(width: desiredWidth)
 
@@ -364,6 +368,8 @@ extension SongsTableViewController: UIGestureRecognizerDelegate {
     }
     
     func handle(tap: UITapGestureRecognizer) {
-        hideSearchBar()
+        if searchBar.isFirstResponder {
+            hideSearchBar()
+        }
     }
 }
