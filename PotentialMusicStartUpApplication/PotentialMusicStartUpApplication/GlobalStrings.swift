@@ -17,6 +17,7 @@ let kSongNotificationName = NSNotification.Name(rawValue: "songAdded")
 let kErrorNotificationName = NSNotification.Name(rawValue: "ERROR! ALERT!")
 let kImageNotificationName = NSNotification.Name(rawValue: "imageReceived")
 
+let kTitle = "Latest Songs"
 let kSongCellId = "SongTableViewCell"
 let kUserDefaultsKey = "token"
 

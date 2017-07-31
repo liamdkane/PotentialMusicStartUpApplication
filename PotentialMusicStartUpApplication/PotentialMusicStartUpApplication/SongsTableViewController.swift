@@ -34,7 +34,7 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
     let songViewModel: SongViewModel
     var sortPreference: Sort = .standard {
         didSet{
-            songViewModel.sort(by: sortPreference)
+            songViewModel.filter(by: searchBar.text ?? "", sort: sortPreference)
         }
     }
     
@@ -83,7 +83,15 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
     }
     
     func configureNavigationBar () {
-        navigationController?.navigationBar.barTintColor = lightBlack
+        
+        let navBar = navigationController?.navigationBar
+        
+        let fontAttributes: [String: Any] = [NSForegroundColorAttributeName: UIColor.white,
+                              NSFontAttributeName: UIFont(name: kFontName, size: 21)!]
+        navBar?.titleTextAttributes = fontAttributes
+        navBar?.barTintColor = lightBlack
+        
+        toggleTitle(on: true)
         
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(menuButtonPressed))
         menuButton.tintColor = .white
@@ -95,9 +103,13 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         
         //This is initialized with frame/injected into the navigation bar as a minor hack. I don't believe you can set the left button item to a search bar, so I decided to hide the button, and inject the searchBar. I didn't use constraints because of the uncertainty of how they could conflict with the other views.
         searchBar = SongSearchBar(frame: CGRect(x: 12, y:  0, width: 60, height: 44.0))
-        self.navigationController?.navigationBar.addSubview(searchBar)
+        navBar?.addSubview(searchBar)
         searchBar.isHidden = true
         searchBar.delegate = self
+    }
+    
+    func toggleTitle(on: Bool) {
+        navigationItem.title = on ? kTitle : ""
     }
         
     @objc private func searchButtonPressed() {
@@ -113,6 +125,32 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
             menuButton.image = #imageLiteral(resourceName: "menu")
         }
         animateSortControl()
+    }
+    
+    func configureSortControl () {
+        sortControl = UISegmentedControl(items: Sort.orderedStrings())
+        let font = UIFont(name: kFontName, size: 17)
+        sortControl.setTitleTextAttributes([NSFontAttributeName: font!], for: .normal)
+        
+        sortControl.addTarget(self, action: #selector(sortChanged(_:)), for: .valueChanged)
+        view.addSubview(sortControl)
+        sortControl.selectedSegmentIndex = 0
+        
+        //Shout out to Stationhead
+        sortControl.backgroundColor = lightBlack
+        sortControl.tintColor = .red
+        
+        
+    }
+    
+    func makeStartingConstraints() {
+        sortControl.snp.remakeConstraints { (view) in
+            view.bottom.equalTo(self.view.snp.top).offset(-self.navigationController!.navigationBar.frame.height)
+            view.leading.trailing.equalToSuperview()
+        }
+        tableView.snp.remakeConstraints { (view) in
+            view.top.trailing.leading.bottom.equalToSuperview()
+        }
     }
     
     func animateSortControl () {
@@ -140,28 +178,6 @@ class SongsTableViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func makeStartingConstraints() {
-        sortControl.snp.remakeConstraints { (view) in
-            view.bottom.equalTo(self.view.snp.top).offset(-self.navigationController!.navigationBar.frame.height)
-            view.leading.trailing.equalToSuperview()
-        }
-        tableView.snp.remakeConstraints { (view) in
-            view.top.trailing.leading.bottom.equalToSuperview()
-        }
-    }
-    
-    func configureSortControl () {
-        sortControl = UISegmentedControl(items: Sort.orderedStrings())
-        
-        sortControl.addTarget(self, action: #selector(sortChanged(_:)), for: .valueChanged)
-        view.addSubview(sortControl)
-        
-        //Shout out to Stationhead
-        sortControl.backgroundColor = lightBlack
-        sortControl.tintColor = .red
-        sortControl.selectedSegmentIndex = 0
-    }
-    
     @objc private func sortChanged(_ sender: UISegmentedControl) {
         sortPreference = Sort.ordered()[sender.selectedSegmentIndex]
     }
@@ -172,6 +188,7 @@ extension SongsTableViewController: UISearchBarDelegate {
     
     func showSearchBar() {
         searchBar.isHidden = false
+        toggleTitle(on: false)
         navigationItem.setLeftBarButton(nil, animated: false)
         self.searchBar.prepareForFadeAnimation(fade: false)
         
@@ -195,6 +212,7 @@ extension SongsTableViewController: UISearchBarDelegate {
             self.searchBar.isHidden = true
             self.searchBar.resignFirstResponder()
             self.navigationItem.setLeftBarButton(self.searchButton, animated: false)
+            self.toggleTitle(on: true)
         })
     }
     
@@ -212,7 +230,6 @@ extension SongsTableViewController: UISearchBarDelegate {
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         hideSearchBar()
     }
     
@@ -236,9 +253,7 @@ extension SongsTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if sortPreference == .album {
-            return songViewModel.fileredAndSortedSongs.filter {
-                $0.albumId == songViewModel.albums[section].id
-                }.count
+            return countAlbums(in: section)
         }
         
         return songViewModel.fileredAndSortedSongs.count
@@ -283,10 +298,17 @@ extension SongsTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if sortPreference == .album {
+        if sortPreference == .album,
+            countAlbums(in: section) > 0 {
             return songViewModel.albums[section].name
         }
         return nil
+    }
+    
+    private func countAlbums(in section: Int) -> Int {
+        return songViewModel.fileredAndSortedSongs.filter {
+            $0.albumId == songViewModel.albums[section].id
+            }.count
     }
 }
 
