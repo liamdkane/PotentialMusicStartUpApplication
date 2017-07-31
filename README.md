@@ -2,9 +2,9 @@
 SpotifyAPI Fun
 
 
-######Latest Songs######
+######Latest Songs
 
-##Tools/Install##
+##Tools/Install
 
 1. Xcode 8.3.3 (simulator - iPhone 7)
 2. Alamofire (Network Calling Framework)
