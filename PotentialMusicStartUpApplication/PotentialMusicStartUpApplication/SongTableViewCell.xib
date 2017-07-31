@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="KGk-i7-Jjw" customClass="SongTableViewCell" customModule="PotentialMusicStartUpApplication" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5yM-pn-joq">
+                        <rect key="frame" x="4" y="4.5" width="65" height="65"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="DMZ-ET-GqC"/>
+                            <constraint firstAttribute="height" constant="65" id="lVm-dH-eTy"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="dFJ-zh-pfy">
+                        <rect key="frame" x="75" y="16" width="233" height="20"/>
+                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
+                        <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-2t-4uW">
+                        <rect key="frame" x="77" y="36" width="231" height="16.5"/>
+                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
+                        <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80286815068493156" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="qUI-2t-4uW" secondAttribute="trailing" constant="4" id="1nJ-7f-t9B"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5yM-pn-joq" secondAttribute="bottom" constant="4" id="3Du-4S-BqT"/>
+                    <constraint firstItem="dFJ-zh-pfy" firstAttribute="leading" secondItem="5yM-pn-joq" secondAttribute="trailing" constant="6" id="DsG-Tp-gSD"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="qUI-2t-4uW" secondAttribute="bottom" constant="2" id="HOV-6D-b2c"/>
+                    <constraint firstItem="5yM-pn-joq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="KTo-HV-Fze"/>
+                    <constraint firstItem="5yM-pn-joq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="W5D-d0-0HK"/>
+                    <constraint firstItem="qUI-2t-4uW" firstAttribute="leading" secondItem="5yM-pn-joq" secondAttribute="trailing" constant="8" id="tey-ia-jRK"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dFJ-zh-pfy" secondAttribute="trailing" constant="4" id="yYf-ge-Tew"/>
+                    <constraint firstItem="dFJ-zh-pfy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="z8I-Za-fiD"/>
+                    <constraint firstItem="qUI-2t-4uW" firstAttribute="top" secondItem="dFJ-zh-pfy" secondAttribute="bottom" id="zBI-ea-7YQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="albumImageView" destination="5yM-pn-joq" id="dKh-6o-ScY"/>
+                <outlet property="artistsNamesLabel" destination="qUI-2t-4uW" id="RAj-Yg-ZuG"/>
+                <outlet property="songTitleLabel" destination="dFJ-zh-pfy" id="dXY-ef-mBS"/>
+            </connections>
+            <point key="canvasLocation" x="43" y="77"/>
+        </tableViewCell>
+    </objects>
+</document>
