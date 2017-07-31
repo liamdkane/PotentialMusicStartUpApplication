@@ -162,9 +162,4 @@ class SongViewModel: ErrorHandler {
             }
         }
     }
-    
-    private func handle(_ error: Error) {
-        let noteCenter = NotificationCenter.default
-        noteCenter.post(name: kErrorNotificationName, object: error)
-    }
 }

@@ -55,6 +55,8 @@ class PotentialMusicStartUpApplicationTests: XCTestCase {
     }
 }
 
+//This is just for testing.
+
 extension AlbumModel: Equatable {
     
     public static func == (lhs: AlbumModel, rhs: AlbumModel) -> Bool {

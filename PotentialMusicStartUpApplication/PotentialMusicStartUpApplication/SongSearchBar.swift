@@ -35,6 +35,7 @@ class SongSearchBar: UISearchBar {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //I was noticing some clipping when the cancel button and the test was showing. I tried taking out the string and storing it in the VC before and after animations, but there was still a clip. There is still a bit of a clip, I have a strong suspicion it is due to the nature of SearchBar (minorly conflicting default animations). If I joined the team I would have a direct in debugging that from the get go :D, also XCode doesn't mind emojis so 😅.
     func prepareForFadeAnimation(fade: Bool) {
         if let textView = textView {
             textView.textColor = fade ? .clear : .white

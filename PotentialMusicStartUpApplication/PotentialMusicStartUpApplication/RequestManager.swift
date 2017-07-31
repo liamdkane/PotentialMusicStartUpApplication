@@ -54,12 +54,13 @@ class RequestManager {
             "code" : code
         ]
         
-        authTokenManager.set(urlRequest: generateTokenRequest(codeDictionary))
-        authTokenManager.retrieveFromSpotify {
+        authTokenManager.retrieveFromSpotify (httpAccessTokenRequest: generateTokenRequest(codeDictionary)) {
             callback()
         }
     }
     
+    
+    //Not fully implemented, but the idea is mainly there. See notes in AuthTokenManager
     func refreshToken() {
         
         let refreshDictionary = [
@@ -67,8 +68,7 @@ class RequestManager {
             kRefreshTokenKey : self.authTokenManager.refreshToken
         ]
         
-        authTokenManager.set(urlRequest: generateTokenRequest(refreshDictionary))
-        authTokenManager.retrieveFromSpotify{}
+        authTokenManager.retrieveFromSpotify (httpAccessTokenRequest: generateTokenRequest(refreshDictionary)) {}
     }
     
     func initialGetAllSongsFromNewReleases () {

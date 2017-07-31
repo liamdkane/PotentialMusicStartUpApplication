@@ -18,15 +18,9 @@ class SongTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //contentView.backgroundColor = lightBlack
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    //Prevents 'flicker' when loading cells
     override func prepareForReuse() {
         self.albumImageView.image = nil
         self.songTitleLabel.text = nil
