@@ -24,3 +24,10 @@ As one can tell, View Controllers get a little bit unwieldy. UI elements can tak
 
 #UI/UX#
 
+- Color: I like grey as a colour scheme, it doesn't take away from any of the album art, white makes the song titles and menu items pop. 
+
+- tableView v collectionView: In the Tidal app the manage albums using collection views and it drives me absolutely insane. I understand that a lot of users prefer seeing things visually and a whole album art is pretty nice, I just don't that it makes my eye switch from left to right, if i want to navigate by art in a table view I have to look at the left side, if I navigate by title, I just have to look at the right side. Just a pet pieve of mine.
+
+#Closing#
+
+Futher explanations can be found commented in the code, and I'm more than happy to discuss anything else in more detail.
