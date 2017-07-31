@@ -106,11 +106,18 @@ class SongViewModel: ErrorHandler {
     func sort(by: Sort) {
         switch by {
         case .alphabetical:
-            fileredAndSortedSongs = songs.sorted{ $0.name > $1.name }
-        case .byAlbum:
+            fileredAndSortedSongs = songs.sorted{ $0.name < $1.name }
+        case .album:
             fileredAndSortedSongs = songs.sorted{ $0.albumId > $1.albumId }
         case .standard:
             fileredAndSortedSongs = songs
+        }
+    }
+    
+    func filter(by term: String, sort: Sort) {
+        self.sort(by: sort)
+        fileredAndSortedSongs = fileredAndSortedSongs.filter {
+            $0.name.hasPrefix(term)
         }
     }
     

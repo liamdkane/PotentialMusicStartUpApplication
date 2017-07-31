@@ -14,10 +14,12 @@ class SongTableView: UITableView {
         
         super.init(frame: frame, style: style)
         
+        translatesAutoresizingMaskIntoConstraints = false
         rowHeight = UITableViewAutomaticDimension
         estimatedRowHeight = 74
         
         separatorColor = .darkGray
+        backgroundColor = lightBlack
         scrollsToTop = true
         indicatorStyle = .white
         

@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+
+let kFontName = "Gill Sans"
+
 //VARIOUS IDENTIFIERS
 let kSongNotificationName = NSNotification.Name(rawValue: "songAdded")
 let kErrorNotificationName = NSNotification.Name(rawValue: "ERROR! ALERT!")
