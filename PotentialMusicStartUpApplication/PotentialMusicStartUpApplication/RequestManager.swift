@@ -21,7 +21,7 @@ class RequestManager {
     private let newAlbumsUrl = "https://api.spotify.com/v1/browse/new-releases"
     private let songsForAlbumUrl = "https://api.spotify.com/v1/albums/*/tracks"
     
-    private var authTokenManager = AuthTokenModel()
+    var authTokenManager = AuthTokenModel()
     var viewModel = SongViewModel()
     
     
@@ -29,7 +29,7 @@ class RequestManager {
         print(error)
     }
     
-    func requestAuth () {
+    func requestAuthCode () {
         
         //This is the initial request/redirect to the Spotify page.
         //I chose to do this a little fast and loose, normally I believe creating another window/checking for the spotify app to be superior. There is an SDK to handle this situation, but it seemed unstable and in ObjectiveC which I don't need to introduce. Also I have enough dependencies.
@@ -83,8 +83,7 @@ class RequestManager {
         }
     }
     
-    
-    //MARK: Helper Functions
+    //Computed variable makes sure I'm getting the latest accessToken
     
     lazy var authHeader: HTTPHeaders = {
         let authHeaderString = "Bearer \(self.authTokenManager.accessToken)"
@@ -129,7 +128,8 @@ class RequestManager {
         return httpEncodedRequest
     }
     
-    
+    //MARK: Helper Functions
+
     private func makeQueryItems(_ dict: [String:String]) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         

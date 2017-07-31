@@ -31,8 +31,7 @@ class SongViewModel: ErrorHandler {
     private var imageDataCache = [String: Data]()
     private var currentTasks = Set<String>()
     
-    //the idea behind this is to have a 'Source of Truth'
-    private var songs: [SongModel] = [] {
+    var songs: [SongModel] = [] {
         didSet {
             fileredAndSortedSongs = songs
         }
